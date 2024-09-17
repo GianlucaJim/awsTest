@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - master
+      - master  # Asegúrate de que esto coincide con el nombre de tu rama principal
 
 jobs:
   deploy:
@@ -20,4 +20,4 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@3.131.94.40 'cd /home/ec2-user/myapp && git pull origin main && python3 -m pip install -r requirements.txt && python3 app.py'
+        ssh -o StrictHostKeyChecking=no ec2-user@3.131.94.40 'cd /home/ec2-user/myapp && git pull origin master && python3 -m pip install -r requirements.txt && python3 app.py'
