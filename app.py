@@ -2,7 +2,7 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 
 # Configurar el cliente de DynamoDB
-dynamodb = boto3.resource('dynamodb', region_name='us-east-2')  # Cambia la región según corresponda
+dynamodb = boto3.resource('dynamodb', region_name='us-east-2') 
 
 # Conectar con la tabla
 table = dynamodb.Table('Personas')
@@ -17,7 +17,7 @@ def guardar_persona(id, nombre, edad):
                 'Edad': edad
             }
         )
-        print(f"Persona {nombre} guardada con éxito: {response}")
+        print(f"Persona {nombre} guardada con éxito.")
     except NoCredentialsError:
         print("Credenciales no encontradas. Asegúrate de haber configurado tus credenciales de AWS.")
 
@@ -38,18 +38,35 @@ def obtener_persona(id):
     except NoCredentialsError:
         print("Credenciales no encontradas. Asegúrate de haber configurado tus credenciales de AWS.")
 
+# menú
+def mostrar_menu():
+    print("\nMenú:")
+    print("1 - Guardar persona")
+    print("2 - Buscar persona por ID")
+    print("3 - Salir")
+    return input("Elige una opción: ")
+
 # Punto de entrada principal del programa
 if __name__ == "__main__":
-    # Pedir datos al usuario
-    id = input("Introduce un ID: ")
-    nombre = input("Introduce el nombre: ")
-    edad = int(input("Introduce la edad: "))
+    while True:
+        opcion = mostrar_menu()
 
-    # Guardar la persona en la base de datos
-    guardar_persona(id, nombre, edad)
+        if opcion == '1':
+            # Guardar persona
+            id = input("Introduce un ID: ")
+            nombre = input("Introduce el nombre: ")
+            edad = int(input("Introduce la edad: "))
+            guardar_persona(id, nombre, edad)
 
-    # Preguntar si se desea recuperar la persona guardada
-    respuesta = input("¿Deseas buscar la persona por su ID? (s/n): ")
-    if respuesta.lower() == 's':
-        id_buscar = input("Introduce el ID de la persona que deseas buscar: ")
-        obtener_persona(id_buscar)
+        elif opcion == '2':
+            # Buscar persona por ID
+            id_buscar = input("Introduce el ID de la persona que deseas buscar: ")
+            obtener_persona(id_buscar)
+
+        elif opcion == '3':
+            # Salir del programa
+            print("Saliendo del programa.")
+            break
+
+        else:
+            print("Opción no válida, intenta de nuevo.")
