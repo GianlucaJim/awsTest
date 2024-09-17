@@ -2,7 +2,7 @@ import boto3
 from botocore.exceptions import NoCredentialsError
 
 # Configurar el cliente de DynamoDB
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2')  # Cambia la región según corresponda
+dynamodb = boto3.resource('dynamodb', region_name='us-east-2')  # Cambia la región según corresponda
 
 # Conectar con la tabla
 table = dynamodb.Table('Personas')
